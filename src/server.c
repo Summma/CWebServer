@@ -9,6 +9,8 @@
 #include <poll.h>
 #include "server.h"
 
+#define ignore(expr) do { (void)(expr); } while (0)
+
 void die(const char *msg) {
     perror(msg);
     exit(EXIT_FAILURE);
@@ -61,7 +63,7 @@ ssize_t serve_file(int client_fd, const char *file_path, const char *content_typ
         return serve_file(client_fd, "404.html", "text/html", TEXT);
     }
 
-    return send_response(client_fd, file, content_type, TEXT);
+    return send_response(client_fd, file, content_type, file_type);
 }
 
 char* match_one(regex_t *regex, const char *str) {
@@ -122,7 +124,8 @@ void handle_request(int client_fd) {
     if (matched) {
         // At this point, we know the file path must at least follow this pattern
         // So checking for errors again would be redundant
-        int _ = regcomp(&regex, "\\.(.*)", REG_EXTENDED);
+        int _status = regcomp(&regex, "\\.(.*)", REG_EXTENDED);
+        ignore(_status);
 
         char* extension = match_one(&regex, matched);
         char content_type[100];
@@ -152,7 +155,7 @@ void handle_request(int client_fd) {
 uint32_t string_to_ip(const char *ip_str) {
     struct in_addr addr;
     if (inet_pton(AF_INET, ip_str, &addr) != 1) {
-        return 0; 
+        return 0;
     }
     return addr.s_addr;
 }
@@ -188,19 +191,19 @@ void initialize_server(struct pollfd *fds, int max_size, struct sockaddr_in *add
 }
 
 void serve(const int max_clients, char* ip, __uint16_t port) {
-    const int max_size = 20; int client_fd;
+    int client_fd;
     struct sockaddr_in addr;
     int addr_len = sizeof(addr);
-    struct pollfd fds[max_size + 1];
+    struct pollfd fds[max_clients + 1];
 
     __uint32_t i_ip = string_to_ip(ip);
 
-    initialize_server(fds, max_size, &addr, i_ip, port);
+    initialize_server(fds, max_clients, &addr, i_ip, port);
 
     int fd = fds[0].fd;
 
     while (1) {
-        int activity = poll(fds, max_size + 1, -1);
+        int activity = poll(fds, max_clients + 1, -1);
 
         if (activity < 0) {
             perror("poll()");
@@ -216,7 +219,7 @@ void serve(const int max_clients, char* ip, __uint16_t port) {
             }
 
             // Looping through all clients and assigning fd to the first available slot
-            for (int i = 1; i <= max_size; i++) {
+            for (int i = 1; i <= max_clients; i++) {
                 if (fds[i].fd == -1) {
                     fds[i].fd = client_fd;
                     fds[i].events = POLLIN;
@@ -225,7 +228,7 @@ void serve(const int max_clients, char* ip, __uint16_t port) {
             }
         }
 
-        for (int i = 1; i <= max_size; i++) {
+        for (int i = 1; i <= max_clients; i++) {
             if (fds[i].fd == -1) continue;
 
             if (fds[i].revents & POLLIN) {
