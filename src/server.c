@@ -149,6 +149,14 @@ void handle_request(int client_fd) {
     }
 }
 
+uint32_t string_to_ip(const char *ip_str) {
+    struct in_addr addr;
+    if (inet_pton(AF_INET, ip_str, &addr) != 1) {
+        return 0; 
+    }
+    return addr.s_addr;
+}
+
 void initialize_server(struct pollfd *fds, int max_size, struct sockaddr_in *addr, __uint32_t ip, __uint16_t port) {
     int server_fd = socket(AF_INET, SOCK_STREAM, 0);
 
@@ -179,13 +187,15 @@ void initialize_server(struct pollfd *fds, int max_size, struct sockaddr_in *add
     }
 }
 
-void serve(const int max_clients, __uint32_t ip, __uint16_t port) {
+void serve(const int max_clients, char* ip, __uint16_t port) {
     const int max_size = 20; int client_fd;
     struct sockaddr_in addr;
     int addr_len = sizeof(addr);
     struct pollfd fds[max_size + 1];
 
-    initialize_server(fds, max_size, &addr, 0, 1234);
+    __uint32_t i_ip = string_to_ip(ip);
+
+    initialize_server(fds, max_size, &addr, i_ip, 1234);
 
     int fd = fds[0].fd;
 

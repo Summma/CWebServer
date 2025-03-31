@@ -25,8 +25,10 @@ int match_content_type(const char *extension, char content_type[]);
 
 void handle_request(int client_fd);
 
+uint32_t string_to_ip(const char *ip_str);
+
 void initialize_server(struct pollfd *fds, int max_size, struct sockaddr_in *addr, __uint32_t ip, __uint16_t port);
 
-void serve(const int max_clients, __uint32_t ip, __uint16_t port);
+void serve(const int max_clients, char* ip, __uint16_t port);
 
 #endif
