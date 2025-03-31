@@ -165,7 +165,7 @@ void initialize_server(struct pollfd *fds, int max_size, struct sockaddr_in *add
 
     addr->sin_family = AF_INET;
     addr->sin_port = htons(port);
-    addr->sin_addr.s_addr = htonl(ip);
+    addr->sin_addr.s_addr = ip;
 
     int rv = bind(server_fd, (const struct sockaddr *)addr, sizeof(*addr));
 
@@ -195,7 +195,7 @@ void serve(const int max_clients, char* ip, __uint16_t port) {
 
     __uint32_t i_ip = string_to_ip(ip);
 
-    initialize_server(fds, max_size, &addr, i_ip, 1234);
+    initialize_server(fds, max_size, &addr, i_ip, port);
 
     int fd = fds[0].fd;
 
