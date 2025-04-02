@@ -1,0 +1,78 @@
+body {
+    background-color: #f0f0f0;
+    margin: 0;
+}
+
+.content {
+    font-family: Arial, sans-serif;
+    padding: 0px 100px;
+    padding-top: 60px;
+}
+
+a {
+    font-weight: bold;
+    color: #030383;
+}
+
+p {
+    font-family: Roboto;
+}
+
+div {
+    flex: 1;
+}
+
+nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background-color: #99c9a8; /* Example background color */
+    padding: 10px; /* Add some padding */
+    z-index: 1000; /* Ensure it stays on top */
+}
+
+nav ul {
+    list-style-type: none; /* Remove bullet points */
+    margin: 0;
+    padding: 0;
+    display: flex; /* Arrange links horizontally */
+    justify-content: space-around; /* Distribute space evenly */
+}
+
+nav li a {
+    color: white; /* Example text color */
+    text-decoration: none; /* Remove underlines */
+    font-size: 24px;
+}
+
+#bio_image {
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+    border-radius: 5%;
+    object-fit: contain;
+}
+
+#name {
+    font-size: 80px;
+    font-weight: bold;
+    margin-bottom: 40px;
+}
+
+#descriptor {
+    font-size: 24px;
+    margin-bottom: 40px;
+}
+
+.body {
+    padding: 10px 0px;
+    color: #030303;
+}
+
+.bio {
+    display: flex;
+    flex-direction: row;
+}
+
+.bar {
+}
