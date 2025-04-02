@@ -27,7 +27,7 @@ jobs:
           echo "SERVER_DOMAIN: ${{ secrets.SERVER_DOMAIN }}"
           echo "Checking for /root/CWebServer directory:"
 
-          ssh -o StrictHostKeyChecking=no -i /root/.ssh/github_actions root@${{ secrets.SERVER_IP }} << 'EOF'
+          ssh -o StrictHostKeyChecking=no root@${{ secrets.SERVER_IP }} << 'EOF'
             # Kill existing tmux session (if any)
             tmux kill-session -t myserver || true
             # Create a new tmux session with the latest code
