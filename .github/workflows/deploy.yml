@@ -32,5 +32,5 @@ jobs:
             tmux kill-session -t myserver || true
             # Create a new tmux session with the latest code
             tmux new-session -d -s myserver 'cd /root/CWebServer && git pull && make rebuild && ./server ${{ secrets.SERVER_IP }} ${{ secrets.SERVER_PORT }}'
-            tmux attach-session -t myserver
+            # tmux attach-session -t myserver
           EOF
