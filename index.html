@@ -2,25 +2,35 @@
 <html>
     <head>
         <link rel="stylesheet" href="Website/styles.css" />
-        <title>Test</title>
+        <script src="Website/effects.js"></script>
+        <title>Alejandro Pinto</title>
     </head>
     <body>
-        <nav>
+        <nav class="effect">
             <ul>
-                <li><a href="#">Home</a></li>
-                <li><a href="#">About</a></li>
+                <li><a href="/">Home</a></li>
+                <li><a href="/#about">About</a></li>
                 <li><a href="#">Contact</a></li>
             </ul>
-        </nav>
+        </nav>c
 
-        <div class="content">
+        <div class="home section" id="home">
             <div class="bio">
                 <div class="title-about-me">
                     <p id="name">Alejandro Pinto</p>
                     <p id="descriptor">ML Researcher & Software Engineer</p>
                     <p id="descriptor">Computer Science & Data Science at Rutgers University</p>
+
+                    <div class="social-links">
+                        <a href="https://github.com/Summma" target="_blank" class="github">
+                            <img src="attachments/github-logo.png" alt="GitHub">
+                        </a>
+                        <a href="https://www.linkedin.com/in/alejandroipinto/" target="_blank" class="linkedin">
+                            <img src="attachments/linkedin-logo.png" alt="LinkedIn">
+                        </a>
+                    </div>
                 </div>
-                <img id="bio_image" src="attachments/bio_image.jpeg" alt="Alejandro Pinto">
+                <img class="bio_image card" src="attachments/bio_image.jpeg" alt="Alejandro Pinto">
             </div>
 
             <div class="body">
@@ -35,6 +45,25 @@
                 </br>
                 <a href="attachments/resume.pdf">Resume</a>
             </div>
+
         </div>
+
+        <div class="about section" id="about">
+            <span class="header"><p>About Me</p></span>
+            <p>
+                I'm a software engineer with a passion for creating innovative solutions. I have experience in developing web applications using HTML, CSS, and JavaScript, as well as backend development using C and Python.
+            </p>
+        </div>
+
+        <footer>
+            <div class="social-links footer">
+                <a href="https://github.com/Summma" target="_blank" class="github">
+                    <img src="attachments/github-logo-white.png" alt="GitHub">
+                </a>
+                <a href="https://www.linkedin.com/in/alejandroipinto/" target="_blank" class="linkedin">
+                    <img src="attachments/linkedin-logo.png" alt="LinkedIn">
+                </a>
+            </div>
+        </footer>
     </body>
 </html>
