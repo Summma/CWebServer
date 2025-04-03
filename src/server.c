@@ -85,6 +85,9 @@ int match_content_type(const char *extension, char content_type[]) {
     else if (strcmp(extension, "jpeg") == 0) {
         strcpy(content_type, "image/jpeg");
     }
+    else if (strcmp(extension, "png") == 0) {
+        strcpy(content_type, "image/png");
+    }
     else if (strcmp(extension, "js") == 0) {
         strcpy(content_type, "application/javascript");
     }
