@@ -26,6 +26,9 @@ ssize_t send_response(int client_fd, FILE *file, const char *content_type, FileT
         "HTTP/1.1 200 OK\r\n"
         "Content-Type: %s\r\n"
         "Content-Length: %lu\r\n"
+        "Cache-Control: no-cache, no-store, must-revalidate\r\n"
+        "Pragma: no-cache\r\n"
+        "Expires: 0\r\n"
         "\r\n",
         content_type, file_size);
 
