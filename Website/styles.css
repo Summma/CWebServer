@@ -120,7 +120,7 @@ nav li a:hover {
     flex-direction: row;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1200px) {
     .bio {
         flex-direction: column-reverse;
     }
