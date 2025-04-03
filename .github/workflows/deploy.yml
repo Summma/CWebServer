@@ -28,9 +28,11 @@ jobs:
           echo "Checking for /root/CWebServer directory:"
 
           ssh -o StrictHostKeyChecking=no root@${{ secrets.SERVER_IP }} << 'EOF'
-            # Kill existing tmux session (if any)
-            tmux kill-session -t myserver || true
-            # Create a new tmux session with the latest code
+            # Kill existing tmux session if it exists
+            tmux has-session -t myserver 2>/dev/null && tmux kill-session -t myserver
+
+            # Start a new tmux session and run the server
             tmux new-session -d -s myserver 'cd /root/CWebServer && git pull && make rebuild && ./server ${{ secrets.SERVER_IP }} ${{ secrets.SERVER_PORT }}'
-            # tmux attach-session -t myserver
+
+            echo "tmux session 'myserver' started successfully."
           EOF
