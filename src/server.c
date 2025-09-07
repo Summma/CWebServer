@@ -7,12 +7,25 @@
 #include <string.h>
 #include <regex.h>
 #include <poll.h>
+#include <time.h>
 #include "server.h"
 
 #define ignore(expr) do { (void)(expr); } while (0)
 
 void die(const char *msg) {
-    perror(msg);
+    time_t current_time;
+    struct tm *time_info;
+    char buffer[80];
+
+    time(&current_time);
+    time_info = localtime(&current_time);
+    strftime(buffer, sizeof(buffer), "%Y-%m-%d %H:%M:%S", time_info);
+
+    char err[200];
+
+    snprintf(err, sizeof(err), "%s, %s", msg, buffer);
+
+    perror(err);
     exit(EXIT_FAILURE);
 }
 
